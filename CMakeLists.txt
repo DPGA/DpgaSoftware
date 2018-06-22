@@ -32,17 +32,17 @@ set (LIB_QCUSTOMPLOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Lib/libqcustomplot)
 set (LIB_SHM_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Lib/libshm)
 set (LIB_DECODEFRAME_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Lib/libframe)
 set (DAQ_PROJECT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set (DAQ_COMMON ${CMAKE_CURRENT_SOURCE_DIR}/Common)
+set (DAQ_COMMON ${CMAKE_CURRENT_SOURCE_DIR}/common)
 #set (Libraries "pfring pthread")
 
 
-message(INFO ${Green} " LIB_SHM_PATH="${LIB_SHM_PATH}   ${White}) 
-message(INFO ${Green} " LIB_QCUSTOMPLOT_PATH="${LIB_QCUSTOMPLOT_PATH}   ${White}) 
-message(INFO ${Green} " LIB_DECODEFRAME_PATH="${LIB_DECODEFRAME_PATH}   ${White})
-message(INFO ${Green} " DAQ_PROJECT_PATH="${DAQ_PROJECT_PATH}   ${White})
+message(INFO ${Green} " LIB_SHM_PATH=" ${LIB_SHM_PATH}   ${White}) 
+message(INFO ${Green} " LIB_QCUSTOMPLOT_PATH=" ${LIB_QCUSTOMPLOT_PATH}   ${White}) 
+message(INFO ${Green} " LIB_DECODEFRAME_PATH=" ${LIB_DECODEFRAME_PATH}   ${White})
+message(INFO ${Green} " DAQ_PROJECT_PATH=" ${DAQ_PROJECT_PATH}   ${White})
 #set (USERLIB tinyxml)
 
-include_directories(./include/ ../include  ../libdaq/include /usr/local/include)
+include_directories(./include/ ${DAQ_COMMON}/include  ../libdaq/include /usr/local/include)
 
 link_directories(/usr/local/lib ${CMAKE_CURRENT_SOURCE_DIR}/lib/build)
 
@@ -61,7 +61,7 @@ add_library(libqwt STATIC IMPORTED)
 
 
 if(LIB_QCUSTOMPLOT MATCHES "on") 
-	add_subdirectory(../Lib/libqcustomplot "${CMAKE_CURRENT_BINARY_DIR}/libqcustomplot")
+	add_subdirectory(Lib/libqcustomplot "${CMAKE_CURRENT_BINARY_DIR}/libqcustomplot")
 	message(INFO ${Blue} " Add libqcustomplot" ${White})
 endif()
 
@@ -71,33 +71,33 @@ if(LIB_QWT MATCHES "on")
 endif()
 
 if(LIB_SHM MATCHES "on") 
-	add_subdirectory(../Lib/libshm "${CMAKE_CURRENT_BINARY_DIR}/libshm")
+	add_subdirectory(Lib/libshm "${CMAKE_CURRENT_BINARY_DIR}/libshm")
 	message(INFO ${Blue} " Add Libshm"   ${White})
 endif()
 
 
 if(LIB_FRAME MATCHES "on") 
-	add_subdirectory(../Lib/libframe "${CMAKE_CURRENT_BINARY_DIR}/libframe")
+	add_subdirectory(Lib/libframe "${CMAKE_CURRENT_BINARY_DIR}/libframe")
 	message(INFO ${Blue} " Add Libframe" ${White})
 endif()
 
 if(DAQ MATCHES "on") 
-	add_subdirectory(../Daq/daqDpga "${CMAKE_CURRENT_BINARY_DIR}/daqDpga")
+	add_subdirectory(Daq/daqDpga "${CMAKE_CURRENT_BINARY_DIR}/daqDpga")
 	message(INFO ${Blue} " Add DaqDpga" ${White} )
 endif()
 
 if(VISU MATCHES "on") 
-	add_subdirectory(../Monitoring/Visu "${CMAKE_CURRENT_BINARY_DIR}/visu")
+	add_subdirectory(Monitoring/Visu "${CMAKE_CURRENT_BINARY_DIR}/visu")
 	message(INFO ${Blue} " Add Visu" ${White} )
 endif()
 
 if(VISUQWT MATCHES "on") 
-	add_subdirectory(../Monitoring/visuqwt "${CMAKE_CURRENT_BINARY_DIR}/visuqwt")
+	add_subdirectory(Monitoring/visuqwt "${CMAKE_CURRENT_BINARY_DIR}/visuqwt")
 	message(INFO ${Blue} " Add Visuqwt" ${White} )
 endif()
 
 if(QTANALYSE MATCHES "on") 
-	add_subdirectory(../Analyse/QtAnalyse "${CMAKE_CURRENT_BINARY_DIR}/QtAnalyses")
+	add_subdirectory(Analyse/QtAnalyse "${CMAKE_CURRENT_BINARY_DIR}/QtAnalyses")
 	message(INFO ${Blue} " Add QTanalyse" ${White})
 endif()
 
@@ -107,7 +107,7 @@ if(QTDCS MATCHES "on")
 endif()
 
 if(HVPROG MATCHES "on") 
-	add_subdirectory(../HvProg "${CMAKE_CURRENT_BINARY_DIR}/HvProg")
+	add_subdirectory(HvProg "${CMAKE_CURRENT_BINARY_DIR}/HvProg")
 	message(INFO ${Blue} " Add HvProg" ${White})
 endif()
 
