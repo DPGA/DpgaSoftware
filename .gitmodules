@@ -1,3 +1,21 @@
 [submodule "common"]
 	path = common
 	url = https://github.com/DPGA/common
+[submodule "Analyse"]
+	path = Analyse
+	url = https://github.com/DPGA/Analyse
+[submodule "Daq"]
+	path = Daq
+	url = https://github.com/DPGA/Daq
+[submodule "Dcs"]
+	path = Dcs
+	url = https://github.com/DPGA/Dcs
+[submodule "Lib"]
+	path = Lib
+	url = https://github.com/DPGA/Lib
+[submodule "Monitoring"]
+	path = Monitoring
+	url = https://github.com/DPGA/Monitoring
+[submodule "HvProg"]
+	path = HvProg
+	url = https://github.com/DPGA/HvProg
