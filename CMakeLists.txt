@@ -21,7 +21,59 @@ set(BoldMagenta "${Esc}[1;35m")
 set(BoldCyan    "${Esc}[1;36m")
 set(BoldWhite   "${Esc}[1;37m")
 
+
+
 include(CMakeDef.txt)
+
+
+#*************************************************************************************************************************
+function(gitrev gitrep src)
+	IF(EXISTS ${gitrep}/.git )   #CMAKE_CURRENT_SOURCE_DIR}/../.git)
+		FIND_PACKAGE(Git)
+		IF(GIT_FOUND)
+			EXECUTE_PROCESS(
+				COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+				WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+				OUTPUT_VARIABLE "GIT_BUILD_VERSION"
+				ERROR_QUIET
+				OUTPUT_STRIP_TRAILING_WHITESPACE)
+			message(${Yellow} INFO " ${PROJECT_NAME} git version = " ${GIT_BUILD_VERSION}  ${White})       
+		ELSE(GIT_FOUND)
+			SET(GIT_BUILD_VERSION 0)
+			message(SEND_ERROR "please install git "  ) 
+		ENDIF(GIT_FOUND)
+	ELSE(EXISTS ${gitrep}/.git ) 
+		message(SEND_ERROR "git revision not found")
+	ENDIF(EXISTS ${gitrep}/.git)
+
+	CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${src}/Version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/${src}/Version.h )
+endfunction()
+#*************************************************************************************************************************
+
+
+#*************************************************************************************************************************
+function(gitcommit gitrep)
+	IF(EXISTS ${gitrep}/.git )   #CMAKE_CURRENT_SOURCE_DIR}/../.git)
+		FIND_PACKAGE(Git)
+		IF(GIT_FOUND)
+			EXECUTE_PROCESS(
+				COMMAND ${GIT_EXECUTABLE} checkout master
+				COMMAND ${GIT_EXECUTABLE} commit -am "."
+				WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+#				OUTPUT_VARIABLE "GIT_BUILD_VERSION"
+				RESULT_VARIABLE result
+				ERROR_QUIET
+				OUTPUT_STRIP_TRAILING_WHITESPACE)
+			message(${Yellow} INFO " ${PROJECT_NAME} git commit = " ${result} ${White})       
+		ELSE(GIT_FOUND)
+			message(SEND_ERROR "please install git "  ) 
+		ENDIF(GIT_FOUND)
+	ELSE(EXISTS ${gitrep}/.git ) 
+		message(SEND_ERROR "git revision not found")
+	ENDIF(EXISTS ${gitrep}/.git)
+endfunction()
+#*************************************************************************************************************************
+
 
 set (O_FLAG "-O2 -DHAVE_PF_RING")
 set (CFLAGS "${O_FLAG} -Wall -D ENABLE_BPF  -D HAVE_PF_RING_ZC")
